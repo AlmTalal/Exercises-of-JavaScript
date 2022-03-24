@@ -1,74 +1,54 @@
-/*Pico = -1
-Let i = 1;
-While  (i < array.length - 1) [1,3,5,7,8,9,10,11,12,0]
+/*Write a function that takes in an array of integers and returns the length of the longest peak in the array.
 
- 1,2,3,2
-Let array[i] = array[i] = 2
-Let array[i - 1] = array[i - 1 ] = 1
-Marcapasos = 0;
+A peak is defined as adjacent integers in the array that are STRICTLY increasing until they reach a tip 
+(the highest value in the peak), at which point they become STRICTLY decreasing, At least three integers are required to form a peak
 
-array[i - 1] < array[i]
-Marcapasos ++
-i++
+For example, the integers 1,4,10,2 form a peak, but the integers 4,0,10 don't and neither do the integers 1,2,2,0.
+Similarly, the integers 1,2,3 don't form a peak because there aren't any STRICTLY decreasing integers after the 3
 
-Si array[i - 1] > array[i]
-Marcapasos = 0;
-i++
+Sample Input:
+array=[1,2,3,3,4,0,10,6,5,-1,-3,2,3]
+Sample Output: 6*/
 
-While (marcapasos >= 3 && i < array.length - 1 ){
-
- array[i - 1] < array[i]
-Marcapasos ++
-I++;
-
-If  (array[i - 1] > array[i]) {
- Marcapasos ++
-
-If (marcapaso > pico)
-Pico = marcapasos;}
-marcapasos = 0 
-Break;
-
-console.log(pico)*/
-
-
-function longestPeak (array){
-    let pico = 0;
-    let i = 1;
-    let marcapasos = 1;
-    while (i <= array.length -1){
-        if (array[i - 1] < array[i]){
-            marcapasos++;
-            i++;
-        }
-        if (array[i - 1] >= array[i]){
-            marcapasos = 1;
-            i++;
-        }
-        while (marcapasos >= 3 && i <= array.length - 1){
-            if (array[i - 1] === array[i]){
-                marcapasos = 1;
-                break;
-            }
-            if (array[i - 1] < array[i]){
-                marcapasos++;
-                i++;
-            }
-            if (array[i - 1] > array[i]){
-                marcapasos++;
-                i++;
-                if (marcapasos > pico){
-                    pico = marcapasos;
-                    marcapasos = 1;
-                }
-            }
-            if (marcapasos === 1){
-                break;
-            }
-        }
+function longestPeak(array) {
+  let pico = 0;
+  let i = 1;
+  let marcapasos = 1;
+  while (i <= array.length - 1) {
+    if (array[i - 1] < array[i]) {
+      marcapasos++;
+      i++;
     }
-    if (pico <= 3){pico = 0};
-    console.log(pico);
-} 
+    if (array[i - 1] >= array[i]) {
+      marcapasos = 1;
+      i++;
+    }
+    while (marcapasos >= 3 && i <= array.length - 1) {
+      if (array[i - 1] === array[i]) {
+        marcapasos = 1;
+        break;
+      }
+      if (array[i - 1] < array[i]) {
+        marcapasos++;
+        i++;
+      }
+      if (array[i - 1] > array[i]) {
+        marcapasos++;
+        i++;
+        if (marcapasos > pico) {
+          pico = marcapasos;
+          marcapasos = 1;
+        }
+      }
+      if (marcapasos === 1) {
+        break;
+      }
+    }
+  }
+  if (pico <= 3) {
+    pico = 0;
+  }
+  console.log(pico);
+}
 
-longestPeak( [1, 1, 1, 2, 3, 10, 12, -3, -3, 2, 3, 45, 800, 99, 98, 0, -1, -1, 2, 3, 4, 5, 0, -1, -1])
+longestPeak( [5, 4, 3, 2, 1, 2, 10, 12]);
