@@ -10,45 +10,32 @@ Sample Input:
 array=[1,2,3,3,4,0,10,6,5,-1,-3,2,3]
 Sample Output: 6*/
 
-function longestPeak(array) {
-  let pico = 0;
-  let i = 1;
-  let marcapasos = 1;
-  while (i <= array.length - 1) {
-    if (array[i - 1] < array[i]) {
-      marcapasos++;
+
+function longestPeaK (array){
+  let i = 1 
+  let longestPeak = 0; 
+  while (i < array.length){
+    const isPeak = array[i] > array[i-1] && array[i] > array[i+1];
+    if (!isPeak){
       i++;
     }
-    if (array[i - 1] >= array[i]) {
-      marcapasos = 1;
-      i++;
-    }
-    while (marcapasos >= 3 && i <= array.length - 1) {
-      if (array[i - 1] === array[i]) {
-        marcapasos = 1;
-        break;
+    if ( isPeak){
+      let idxLeft = i-1;
+      while( array[idxLeft] < array[idxLeft + 1] && idxLeft > 0){
+        idxLeft--;
       }
-      if (array[i - 1] < array[i]) {
-        marcapasos++;
-        i++;
+      let idxRight = i+1;
+      while( array[idxRight] < array[idxRight - 1] && idxRight < array.length){
+        idxRight++;
       }
-      if (array[i - 1] > array[i]) {
-        marcapasos++;
-        i++;
-        if (marcapasos > pico) {
-          pico = marcapasos;
-          marcapasos = 1;
-        }
-      }
-      if (marcapasos === 1) {
-        break;
+      let currentPeak = idxRight - idxLeft - 1;
+      i = idxRight;
+      if (longestPeak < currentPeak){
+      longestPeak = currentPeak;
       }
     }
-  }
-  if (pico <= 3) {
-    pico = 0;
-  }
-  console.log(pico);
+  } 
+  console.log(longestPeak)
 }
 
-longestPeak( [5, 4, 3, 2, 1, 2, 10, 12]);
+longestPeaK([1, 2, 3, 4, 5, 1])

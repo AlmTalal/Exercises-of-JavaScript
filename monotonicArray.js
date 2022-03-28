@@ -14,7 +14,7 @@ Sample Output = true*/
 function monotonicArray(array) {
   let isIncreasing = true;
   let decreasing = true;
-  for (let i = 0; i < array.length; i++) {
+  for (let i = 1; i < array.length ; i++) {
     if (array[i] < array[i - 1]) {
       isIncreasing = false;
     }
