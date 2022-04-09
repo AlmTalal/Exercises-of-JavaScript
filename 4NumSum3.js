@@ -37,7 +37,6 @@ function findFourNumSum (sums,targetSum,quadruplets){
       if (currentSum < targetSum){
         left++ 
       }    
-      console.log(1)
   }
 }
 
