@@ -28,7 +28,7 @@ function longestPeaK (array){
       while( array[idxRight] < array[idxRight - 1] && idxRight < array.length){
         idxRight++;
       }
-      let currentPeak = idxRight - idxLeft - 1;
+      let currentPeak = idxRight - idxLeft ;
       i = idxRight;
       if (longestPeak < currentPeak){
       longestPeak = currentPeak;
@@ -38,4 +38,4 @@ function longestPeaK (array){
   console.log(longestPeak)
 }
 
-longestPeaK([1, 2, 3, 4, 5, 1])
+longestPeaK([1, 2, 3, 4, 5, 1,0,2])

@@ -7,7 +7,7 @@ function fourNumSum(array, targetSum){
         const difference = targetSum-currentSum;
         if (difference in allPairSum){
           for (const pair of allPairSum[difference]){
-            quadruplets.push(pair.concat([array[i],array[j]]));
+            quadruplets.push(pair.concat([array[i],array[j]]))}
           }
         }
       }
@@ -19,10 +19,8 @@ function fourNumSum(array, targetSum){
           allPairSum[currentSum].push([array[k],array[i]]);
         }
       }
-    }
     console.log(quadruplets);
   }
   
 
-fourNumSum([7,6,4,-1,5,10,1,-4,8,2,9,-3],10)
-
+fourNumSum([7,6,4,-1,5,10,1],16)

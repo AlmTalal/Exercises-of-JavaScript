@@ -2,7 +2,7 @@ function twoNumberSum2 (array,targetSum){
     let descartes = {};
     for (i of array){
       let objetivo = targetSum - i;
-      if (objetivo in descartes) console.log(i, objetivo)
+      if (objetivo in descartes) console.log([i, objetivo])
       else descartes[i] = true 
   } 
 }
