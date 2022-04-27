@@ -1,5 +1,10 @@
-/*Given an array and a value, find if there is a couple in array whose sum is equal to the given value. 
-If there is such a couple present in array, then print the triplet and return true. Else return false.
+/*Given an array of integers, return the indices of the two numbers whose sum is equal to a given target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+Given nums = [2, 7, 11, 15], target = 9.
+[2, 7]
+
 */
 
 function twoNumberSum(array, targetSum) {
