@@ -68,7 +68,7 @@ function zigzag(array) {
     if (col === 0 && row !== array.length - 1) {
       row++;
       result.push(array[row][col]);
-      while (col < array[row].length && row > 0) {
+      while (col < array[row].length - 1 && row > 0) {
         row--;
         col++;
         result.push(array[row][col]);
@@ -108,6 +108,25 @@ function zigzag(array) {
   }
   console.log(result);
 }
+
+zigzag([[1], [2], [3], [4], [5]]);
+
+zigzag([
+  [1, 3],
+  [2, 4],
+  [5, 7],
+  [6, 8],
+  [9, 10],
+]);
+
+zigzag([
+  [1, 3, 4, 10, 11],
+  [2, 5, 9, 12, 20],
+  [6, 8, 13, 19, 21],
+  [7, 14, 18, 22, 27],
+  [15, 17, 23, 26, 28],
+  [16, 24, 25, 29, 30],
+]);
 
 zigzag([
   [1, 3],
