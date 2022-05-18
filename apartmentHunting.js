@@ -684,7 +684,7 @@ function getBestApartment(array) {
 function distance(a, b) {
   return Math.abs(a - b);
 }*/
-
+/*
 function apartmentHunting(blocks, reqs) {
   const distanceBetweenBlocks = new Array(blocks.length).fill(-Infinity);
   for (let i = 0; i < blocks.length; i++) {
@@ -715,6 +715,60 @@ function getBestApartment(array) {
 }
 
 function difference(a, b) {
+  return Math.abs(a - b);
+}
+*/
+
+function apartmentHunting(blocks, reqs) {
+  closestBlockPerReq = reqs.map((req) => getClosestReq(req, blocks));
+  maxDistanceOfEachReq = getMaxDistance(closestBlockPerReq, blocks);
+  return getBestApartment(maxDistanceOfEachReq);
+}
+
+function getClosestReq(req, blocks) {
+  const closestReqDistance = new Array(blocks.length);
+  let closestReq = Infinity;
+  for (let i = 0; i < blocks.length; i++) {
+    if (blocks[i][req]) {
+      closestReq = i;
+    }
+    closestReqDistance[i] = distanceBetween(i, closestReq);
+  }
+  for (let i = blocks.length - 1; i >= 0; i--) {
+    if (blocks[i][req]) {
+      closestReq = i;
+    }
+    closestReqDistance[i] = Math.min(
+      closestReqDistance[i],
+      distanceBetween(i, closestReq)
+    );
+  }
+  return closestReqDistance;
+}
+
+function getMaxDistance(closestDistance, blocks) {
+  const distanceBetweenBlocks = new Array(blocks.length);
+  for (let i = 0; i < blocks.length; i++) {
+    const distanceOfEachBlock = closestDistance.map((distance) => distance[i]);
+    distanceBetweenBlocks[i] = Math.max(...distanceOfEachBlock);
+  }
+  return distanceBetweenBlocks;
+}
+
+function getBestApartment(array) {
+  let bestApartment = Infinity;
+  let minIdx = 0;
+  for (let i = 0; i < array.length; i++) {
+    let currentApartment = array[i];
+    if (currentApartment < bestApartment) {
+      bestApartment = currentApartment;
+      minIdx = i;
+    }
+  }
+  console.log(minIdx);
+}
+
+function distanceBetween(a, b) {
   return Math.abs(a - b);
 }
 
