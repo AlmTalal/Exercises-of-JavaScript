@@ -37,7 +37,7 @@ Meeting Duration: 30
 
 Sample Output:
 [['11:30','12:00'],['15:00','16:00'],['18:00','18:30']]*/
-
+/* solucion 1
 function calendarMatching(
   calendarOne,
   dailyBoundsOne,
@@ -50,14 +50,15 @@ function calendarMatching(
   dailyBoundsOne = convertNumbersDailyBounds(dailyBoundsOne);
   dailyBoundsTwo = convertNumbersDailyBounds(dailyBoundsTwo);
   meetingDuration = meetingDuration / 60;
-  console.log(meetingDuration);
   calendarOne.splice(0, 0, [null, dailyBoundsOne[0]]);
   calendarTwo.splice(0, 0, [null, dailyBoundsTwo[0]]);
   calendarOne.push([dailyBoundsOne[dailyBoundsOne.length - 1], null]);
   calendarTwo.push([dailyBoundsTwo[dailyBoundsTwo.length - 1], null]);
   calendarOne = possibleTimeForMeetings(calendarOne, meetingDuration);
   calendarTwo = possibleTimeForMeetings(calendarTwo, meetingDuration);
-  return findingTimeForMeetings(calendarOne, calendarTwo, meetingDuration);
+  console.log(
+    findingTimeForMeetings(calendarOne, calendarTwo, meetingDuration)
+  );
 }
 
 function findingTimeForMeetings(calendarOne, calendarTwo, meetingDuration) {
@@ -79,7 +80,9 @@ function findingTimeForMeetings(calendarOne, calendarTwo, meetingDuration) {
       }
     }
   }
-  console.log(perfectTime);
+  if (perfectTime.length === 0) {
+    return "there are not possible matches";
+  } else return perfectTime;
 }
 
 function convertToHour(number) {
@@ -142,6 +145,96 @@ function convertNumbersDailyBounds(array) {
   }
   return array;
 }
+*/
+function calendarMatching(
+  calendar1,
+  dailyBounds1,
+  calendar2,
+  dailyBounds2,
+  meetingDuration
+) {
+  const updatedCalendar1 = updateCalendar(calendar1, dailyBounds1);
+  const updatedCalendar2 = updateCalendar(calendar2, dailyBounds2);
+  const mergedCalendar = mergedCalendars(updatedCalendar1, updatedCalendar2);
+  const flattenedCalendar = flattenedCalanedar(mergedCalendar);
+  return getMatchingAvailabilities(flattenedCalendar, meetingDuration);
+}
+
+function updateCalendar(calendar, dailyBounds) {
+  const updatedCalendar = [
+    ["0:00", dailyBounds[0]],
+    ...calendar,
+    [dailyBounds[1], "23:59"],
+  ];
+  return updatedCalendar.map((meeting) => meeting.map(timeToMinutes));
+}
+
+function mergedCalendars(calendar1, calendar2) {
+  const merged = [];
+  let i = 0;
+  let j = 0;
+  while (i < calendar1.length && j < calendar2.length) {
+    const meeting1 = calendar1[i];
+    const meeting2 = calendar2[j];
+    if (meeting1[0] < meeting2[0]) {
+      merged.push(meeting1);
+      i++;
+    } else {
+      merged.push(meeting2);
+      j++;
+    }
+  }
+  while (i < calendar1.length) merged.push(calendar1[i++]);
+  while (j < calendar2.length) merged.push(calendar2[j++]);
+  return merged;
+}
+
+function flattenedCalanedar(calendar) {
+  const flattened = [calendar[0].slice()];
+  for (let i = 1; i < calendar.length; i++) {
+    const currentMeeting = calendar[i];
+    const previousMeeting = flattened[flattened.length - 1];
+    const [currentStart, currentEnd] = currentMeeting;
+    const [previousStart, previousEnd] = previousMeeting;
+    if (previousEnd >= currentStart) {
+      const newPreviousMeeting = [
+        previousStart,
+        Math.max(previousEnd, currentEnd),
+      ];
+      flattened[flattened.length - 1] = newPreviousMeeting;
+    } else {
+      flattened.push(currentMeeting.slice());
+    }
+  }
+  console.log(flattened);
+  return flattened;
+}
+
+function getMatchingAvailabilities(calendar, meetingDuration) {
+  const matchingAvailabilities = [];
+  for (let i = 1; i < calendar.length; i++) {
+    const start = calendar[i - 1][1];
+    const end = calendar[i][0];
+    const availabilityDuration = end - start;
+    if (availabilityDuration >= meetingDuration) {
+      matchingAvailabilities.push([start, end]);
+    }
+  }
+  return matchingAvailabilities.map((meeting) => meeting.map(minutesToTime));
+}
+
+function timeToMinutes(time) {
+  const [hours, minutes] = time.split(":").map((str) => parseInt(str));
+  return hours * 60 + minutes;
+}
+
+function minutesToTime(minutes) {
+  const hours = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  const hoursString = hours.toString();
+  const minutesString = mins < 10 ? "0" + mins.toString() : mins.toString();
+  return hoursString + ":" + minutesString;
+}
 
 calendarMatching(
   [
@@ -149,13 +242,13 @@ calendarMatching(
     ["12:00", "13:00"],
     ["16:00", "18:00"],
   ],
-  ["8:00", "20:00"],
+  ["9:00", "20:00"],
   [
     ["10:00", "11:30"],
-    ["12:30", "14:00"],
+    ["12:30", "14:30"],
     ["14:30", "15:00"],
     ["16:00", "17:00"],
   ],
-  ["8:00", "18:30"],
-  30
+  ["10:00", "18:30"],
+  15
 );
