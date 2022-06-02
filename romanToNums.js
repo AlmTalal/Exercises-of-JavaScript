@@ -35,7 +35,7 @@ Input: s = "MCMXCIV"
 Output: 1994
 Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.*/
 
-function romanToNum(number) {
+function romanToNum(s) {
   const romanNum = {
     I: 1,
     V: 5,
@@ -45,9 +45,9 @@ function romanToNum(number) {
     D: 500,
     M: 1000,
   };
-  let spreadRoman = [...number];
+  let spreadRoman = [...s];
   if (spreadRoman.length === 1) {
-    console.log(romanNum[number]);
+    console.log(romanNum[s]);
   } else {
     let result = 0;
     for (i = 0; i < spreadRoman.length; i++) {
@@ -90,4 +90,4 @@ function romanToNum(number) {
   }
 }
 
-romanToNum("CMXXIV");
+romanToNum("I");

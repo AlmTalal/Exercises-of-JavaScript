@@ -37,7 +37,7 @@ Meeting Duration: 30
 
 Sample Output:
 [['11:30','12:00'],['15:00','16:00'],['18:00','18:30']]*/
-/* solucion 1
+//solucion 1
 function calendarMatching(
   calendarOne,
   dailyBoundsOne,
@@ -145,7 +145,7 @@ function convertNumbersDailyBounds(array) {
   }
   return array;
 }
-*/
+/*
 function calendarMatching(
   calendar1,
   dailyBounds1,
@@ -234,21 +234,6 @@ function minutesToTime(minutes) {
   const hoursString = hours.toString();
   const minutesString = mins < 10 ? "0" + mins.toString() : mins.toString();
   return hoursString + ":" + minutesString;
-}
+}*/
 
-calendarMatching(
-  [
-    ["9:00", "10:30"],
-    ["12:00", "13:00"],
-    ["16:00", "18:00"],
-  ],
-  ["9:00", "20:00"],
-  [
-    ["10:00", "11:30"],
-    ["12:30", "14:30"],
-    ["14:30", "15:00"],
-    ["16:00", "17:00"],
-  ],
-  ["10:00", "18:30"],
-  15
-);
+calendarMatching([], ["8:00", "18:00"], [], ["7:00", "18:30"], 15);
