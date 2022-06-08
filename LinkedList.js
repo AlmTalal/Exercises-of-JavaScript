@@ -89,15 +89,32 @@ class MyLinkedList {
         current = current.next;
         counter++;
       }
-      console.log(current.value);
-      return current.value;
+      console.log(current.next);
     }
+  }
+
+  changeNext(currentIdx, nextIdx) {
+    let head = this.head;
+    let current = this.head;
+    let i = 0;
+    while (i < nextIdx && head) {
+      head = head.next;
+      i++;
+    }
+    let j = 0;
+    while (j < currentIdx && current) {
+      current = current.next;
+      j++;
+    }
+    current.next = head;
+  }
+
+  addABonchOfEle(element) {
+    element = element.map((element) => this.addAtTail(element));
   }
 }
 
 var obj = new MyLinkedList();
-
-obj.addAtIndex(1, 0);
-obj.get(0);
-
+obj.addABonchOfEle([1, 2, 3]);
+//obj.get(2);
 console.log(obj);
