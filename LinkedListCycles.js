@@ -17,7 +17,12 @@ class MyLinkedList {
   }
 
   addAtTail(value) {
-    let node = new Node(value);
+    let node;
+    if (!value.next) {
+      node = new Node(value);
+    } else {
+      node = value;
+    }
     let current = this.head;
     if (!this.head) {
       this.size++;
@@ -124,3 +129,87 @@ class MyLinkedList {
     return this.size - 1;
   }
 }
+
+function hashCycle(linkedList) {
+  let index = 0;
+  let hashTable = {};
+  let repetition = false;
+  let head = linkedList.head;
+  while (head) {
+    if (hashTable[head.value]) {
+      if (hashTable[head.value] < index) {
+        repetition = true;
+        console.log(repetition);
+        console.log(hashTable[head.value]);
+        return { repetition };
+      }
+    } else {
+      hashTable[head.value] = index;
+      head = head.next;
+    }
+    index++;
+  }
+
+  console.log(repetition);
+  return repetition;
+}
+
+function linkTwoLinkedList(linkedList1, linkedList2) {
+  linkedList1.size = linkedList1.size + linkedList2.size - 1;
+  linkedList1.addAtTail(linkedList2.head);
+  return linkedList1;
+}
+
+function findIntersection(linkedList1, linkedList2) {
+  let headOne = linkedList1.head;
+  let counter = 1;
+  let hashTable = {};
+  while (headOne) {
+    hashTable[headOne] = counter;
+    counter++;
+    headOne = headOne.next;
+  }
+  counter = 0;
+  let headTwo = linkedList2.head;
+  while (headTwo) {
+    if (hashTable[headTwo]) {
+      return [counter, headTwo.value, hashTable[headTwo]];
+    } else {
+      counter++;
+      headTwo = headTwo.next;
+    }
+  }
+  return "there is not intersection";
+}
+
+function twoPointersCycle(linkedList) {
+  if (!linkedList.head || !linkedList.head.next) {
+    return false;
+  }
+  let slow = linkedList.head;
+  let fast = linkedList.head;
+  let repetition = false;
+  while (fast.next !== null && fast.next !== null) {
+    slow = slow.next;
+    fast = fast.next.next;
+    if (fast === slow) {
+      repetition = true;
+      console.log(repetition);
+      return repetition;
+    }
+  }
+  console.log(repetition);
+  return repetition;
+}
+
+const linkedList = new MyLinkedList();
+const intersection = new MyLinkedList();
+const linkedList1 = new MyLinkedList();
+linkedList.addABonchOfEle([4, 1, 8, 4, 5]);
+linkedList1.addABonchOfEle([5, 6, 1, 8, 4, 5]);
+intersection.addABonchOfEle([-3, -2, -1, 0]);
+linkedList1.addAtTail(1);
+linkTwoLinkedList(linkedList, intersection);
+linkTwoLinkedList(linkedList1, intersection);
+const x = findIntersection(linkedList, linkedList1);
+console.log(x);
