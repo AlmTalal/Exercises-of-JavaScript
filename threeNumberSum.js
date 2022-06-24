@@ -9,15 +9,15 @@ function threeNumSum(array, targetSum) {
   let derecha = array.length - 1;
   let resultados = [];
   for (inicio; inicio < array.length - 2; inicio++) {
+    izquierda = inicio + 1;
+    derecha = array.length - 1;
     while (izquierda < derecha) {
       let numero = array[inicio] + array[derecha] + array[izquierda];
       if (numero < targetSum) {
         izquierda++;
-      }
-      if (numero > targetSum) {
+      } else if (numero > targetSum) {
         derecha--;
-      }
-      if (numero === targetSum) {
+      } else if (numero === targetSum) {
         resultados.push([array[inicio], array[izquierda], array[derecha]]);
         izquierda++;
       }
